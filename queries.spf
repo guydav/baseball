@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>ContentFilters</key>
+	<dict/>
+	<key>auto_connect</key>
+	<true/>
+	<key>data</key>
+	<dict>
+		<key>connection</key>
+		<dict>
+			<key>database</key>
+			<string>pitchfx</string>
+			<key>host</key>
+			<string>localhost</string>
+			<key>name</key>
+			<string>localhost</string>
+			<key>rdbms_type</key>
+			<string>mysql</string>
+			<key>sslCACertFileLocation</key>
+			<string></string>
+			<key>sslCACertFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslCertificateFileLocation</key>
+			<string></string>
+			<key>sslCertificateFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>sslKeyFileLocation</key>
+			<string></string>
+			<key>sslKeyFileLocationEnabled</key>
+			<integer>0</integer>
+			<key>type</key>
+			<string>SPSocketConnection</string>
+			<key>useSSL</key>
+			<integer>0</integer>
+			<key>user</key>
+			<string>guydavidson</string>
+		</dict>
+		<key>session</key>
+		<dict>
+			<key>connectionEncoding</key>
+			<string>latin1</string>
+			<key>contentPageNumber</key>
+			<integer>1</integer>
+			<key>contentSelection</key>
+			<data>
+			YnBsaXN0MDDUAQIDBAUGNjdYJHZlcnNpb25YJG9iamVjdHNZJGFy
+			Y2hpdmVyVCR0b3ASAAGGoK0HCBUWFxgZHSQoLDA0VSRudWxs0wkK
+			CwwQFFdOUy5rZXlzWk5TLm9iamVjdHNWJGNsYXNzow0OD4ACgAOA
+			BKMREhOABYAGgAiADFR0eXBlVHJvd3NUa2V5c18QJlNlbGVjdGlv
+			bkRldGFpbFR5cGVQcmltYXJ5S2V5ZWREZXRhaWxz0wkKCxobHKCg
+			gAfSHh8gIVokY2xhc3NuYW1lWCRjbGFzc2VzXxATTlNNdXRhYmxl
+			RGljdGlvbmFyeaMgIiNcTlNEaWN0aW9uYXJ5WE5TT2JqZWN00goL
+			JSehJoAJgAvSCykqK1lOUy5zdHJpbmeACldlbGlhc2lk0h4fLS5f
+			EA9OU011dGFibGVTdHJpbmejLS8jWE5TU3RyaW5n0h4fMTJeTlNN
+			dXRhYmxlQXJyYXmjMTMjV05TQXJyYXnSHh8iNaIiI18QD05TS2V5
+			ZWRBcmNoaXZlctE4OVRkYXRhgAEACAARABoAIwAtADIANwBFAEsA
+			UgBaAGUAbABwAHIAdAB2AHoAfAB+AIAAggCHAIwAkQC6AMEAwgDD
+			AMUAygDVAN4A9AD4AQUBDgETARUBFwEZAR4BKAEqATIBNwFJAU0B
+			VgFbAWoBbgF2AXsBfgGQAZMBmAAAAAAAAAIBAAAAAAAAADoAAAAA
+			AAAAAAAAAAAAAAGa
+			</data>
+			<key>contentSortColIsAsc</key>
+			<true/>
+			<key>contentViewport</key>
+			<string>{{0, 0}, {1188, 720}}</string>
+			<key>isToolbarVisible</key>
+			<true/>
+			<key>queries</key>
+			<string>select P.pitch_type, PT.pitch, count(*) from pitches P
+join pitch_types PT on P.id = PT.pitch
+group by P.pitch_type;
+
+
+select * from pitches where my_pitch_type is not null limit 100
+
+select * from pitch_types
+
+desc pitches
+
+show create table atbats
+
+select p.pitch_id, p.ab_id, p.des, p.type, p.id, p.ball, p.strike, p.on_1b, p.on_2b, p.on_3b, p.sv_id, p.pitch_type, p.type_confidence
+from pitches p 
+where p.ab_id = 56 
+order by p.pitch_id
+
+select ab_id, first_pitch_type, second_pitch_type from pitch_transitions limit 100
+
+transition_id, ab_id, first_pitch_id, first_des, first_type, first_id, first_ball, first_strike, first_on_1b, first_on_2b, first_on_3b, first_sv_id, first_pitch_type, first_type_confidence,
+second_pitch_id, second_des, second_type, second_id, second_ball, second_strike, second_on_1b, second_on_2b, second_on_3b, second_sv_id, second_pitch_type, second_type_confidence
+
+CREATE TABLE `pitch_transitions` (
+  `transition_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `ab_id` mediumint(9) unsigned NOT NULL,
+  `first_pitch_id` mediumint(8) unsigned NOT NULL,
+  `first_des` varchar(50) NOT NULL,
+  `first_type` enum('B','S','X') NOT NULL,
+  `first_id` smallint(5) unsigned NOT NULL,
+  `first_ball` varchar(4) DEFAULT NULL,
+  `first_strike` varchar(4) DEFAULT NULL,
+  `first_on_1b` mediumint(8) unsigned DEFAULT NULL,
+  `first_on_2b` mediumint(8) unsigned DEFAULT NULL,
+  `first_on_3b` mediumint(8) unsigned DEFAULT NULL,
+  `first_sv_id` varchar(13) DEFAULT NULL,
+  `first_pitch_type` varchar(3) DEFAULT NULL,
+  `first_type_confidence` double DEFAULT NULL,
+  `second_pitch_id` mediumint(8) unsigned NOT NULL,
+  `second_des` varchar(50) NOT NULL,
+  `second_type` enum('B','S','X') NOT NULL,
+  `second_id` smallint(5) unsigned NOT NULL,
+  `second_ball` varchar(4) DEFAULT NULL,
+  `second_strike` varchar(4) DEFAULT NULL,
+  `second_on_1b` mediumint(8) unsigned DEFAULT NULL,
+  `second_on_2b` mediumint(8) unsigned DEFAULT NULL,
+  `second_on_3b` mediumint(8) unsigned DEFAULT NULL,
+  `second_sv_id` varchar(13) DEFAULT NULL,
+  `second_pitch_type` varchar(3) DEFAULT NULL,
+  `second_type_confidence` double DEFAULT NULL,
+  PRIMARY KEY (`transition_id`) KEY_BLOCK_SIZE=1024,
+  FOREIGN KEY `ab_id` (`ab_id`) REFERENCES atbats(`ab_id`),
+  FOREIGN KEY `first_pitch_id` (`first_pitch_id`) REFERENCES pitches(`pitch_id`),
+  FOREIGN KEY `second_pitch_id` (`second_pitch_id`) REFERENCES pitches(`pitch_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6900166 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=4 COMMENT='InnoDB free: 771072 kB'
+/*!50100 PARTITION BY KEY ()
+PARTITIONS 4 */
+
+ALTER TABLE `pitch_transitions`
+ADD COLUMN `batter` mediumint(6) unsigned NOT NULL AFTER `ab_id`,
+ADD FOREIGN KEY `batter` (`batter`) REFERENCES players(`eliasid`),
+ADD COLUMN `pitcher` mediumint(6) unsigned NOT NULL AFTER `batter`,
+ADD FOREIGN KEY `pitcher` (`pitcher`) REFERENCES players(`eliasid`)
+
+select *
+from atbats ab
+where ab.ab_id = 56
+
+select *
+from games g
+order by g.date asc
+
+select * from atbats ab where ab.pitcher = 477132
+
+select * from players where players.last = 'Arrieta' 
+
+select avg(count(ab.ab_id)) 
+from atbats ab 
+join players p on p.eliasid = ab.pitcher
+group by p.eliasid
+
+
+select ab_id, first_pitch_type, first_des, second_pitch_type, second_des from pitch_transitions pt 
+where (pt.first_pitch_type = 'FA' or pt.`second_pitch_type` = 'FA') and pt.`pitcher` = 448306
+order by ab_id
+limit 100
+
+select count(pt.`transition_id`) from pitch_transitions pt 
+where (pt.first_pitch_type is not null and pt.second_pitch_type is not null) and pt.`pitcher` = 448306
+
+select pt.`first_pitch_type`, count(pt.`first_pitch_type`) as c
+from pitch_transitions pt  
+where pt.`pitcher` = 448306
+group by pt.`first_pitch_type`
+order by c desc
+
+
+
+select distinct(p.pitch_type) from pitches p
+join atbats ab
+on p.ab_id = ab.ab_id
+join games g
+on ab.game_id = g.game_id
+where g.date &gt;= '01/01/2015'
+
+select g.date, p.ab_id, p.pitch_type, p.des, p.ball, p.strike from pitches p 
+join atbats ab
+on p.ab_id = ab.ab_id
+join games g
+on ab.game_id = g.game_id
+where p.pitch_type = 'FA' and ab.`pitcher` = 448306
+order by g.date desc
+limit 100
+
+select pitch_id, ab_id, pitch_type, des, ball, strike from pitches where ab_id = 6085 order by pitches.`pitch_id`
+
+select * from pitch_transitions pt where pt.ab_id = 6085</string>
+			<key>table</key>
+			<string>players</string>
+			<key>view</key>
+			<string>SP_VIEW_CUSTOMQUERY</string>
+			<key>windowVerticalDividerPosition</key>
+			<real>200</real>
+		</dict>
+	</dict>
+	<key>encrypted</key>
+	<false/>
+	<key>format</key>
+	<string>connection</string>
+	<key>queryFavorites</key>
+	<array/>
+	<key>queryHistory</key>
+	<array>
+		<string>select * from players where players.last = 'Dickey'</string>
+		<string>select * from players where players.last = 'Wakefield'</string>
+		<string>select * from pitches where my_pitch_type is not null limit 100
+
+select * from pitch_types
+order by id asc
+
+desc pitches
+
+show create table atbats
+
+select p.pitch_id, p.ab_id, p.des, p.type, p.id, p.ball, p.strike, p.on_1b, p.on_2b, p.on_3b, p.sv_id, p.pitch_type, p.type_confidence
+from pitches p 
+where p.ab_id = 56 
+order by p.pitch_id
+
+select ab_id, first_pitch_type, second_pitch_type from pitch_transitions limit 100
+
+transition_id, ab_id, first_pitch_id, first_des, first_type, first_id, first_ball, first_strike, first_on_1b, first_on_2b, first_on_3b, first_sv_id, first_pitch_type, first_type_confidence,
+second_pitch_id, second_des, second_type, second_id, second_ball, second_strike, second_on_1b, second_on_2b, second_on_3b, second_sv_id, second_pitch_type, second_type_confidence
+
+CREATE TABLE `pitch_transitions` (
+  `transition_id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `ab_id` mediumint(9) unsigned NOT NULL,
+  `first_pitch_id` mediumint(8) unsigned NOT NULL,
+  `first_des` varchar(50) NOT NULL,
+  `first_type` enum('B','S','X') NOT NULL,
+  `first_id` smallint(5) unsigned NOT NULL,
+  `first_ball` varchar(4) DEFAULT NULL,
+  `first_strike` varchar(4) DEFAULT NULL,
+  `first_on_1b` mediumint(8) unsigned DEFAULT NULL,
+  `first_on_2b` mediumint(8) unsigned DEFAULT NULL,
+  `first_on_3b` mediumint(8) unsigned DEFAULT NULL,
+  `first_sv_id` varchar(13) DEFAULT NULL,
+  `first_pitch_type` varchar(3) DEFAULT NULL,
+  `first_type_confidence` double DEFAULT NULL,
+  `second_pitch_id` mediumint(8) unsigned NOT NULL,
+  `second_des` varchar(50) NOT NULL,
+  `second_type` enum('B','S','X') NOT NULL,
+  `second_id` smallint(5) unsigned NOT NULL,
+  `second_ball` varchar(4) DEFAULT NULL,
+  `second_strike` varchar(4) DEFAULT NULL,
+  `second_on_1b` mediumint(8) unsigned DEFAULT NULL,
+  `second_on_2b` mediumint(8) unsigned DEFAULT NULL,
+  `second_on_3b` mediumint(8) unsigned DEFAULT NULL,
+  `second_sv_id` varchar(13) DEFAULT NULL,
+  `second_pitch_type` varchar(3) DEFAULT NULL,
+  `second_type_confidence` double DEFAULT NULL,
+  PRIMARY KEY (`transition_id`) KEY_BLOCK_SIZE=1024,
+  FOREIGN KEY `ab_id` (`ab_id`) REFERENCES atbats(`ab_id`),
+  FOREIGN KEY `first_pitch_id` (`first_pitch_id`) REFERENCES pitches(`pitch_id`),
+  FOREIGN KEY `second_pitch_id` (`second_pitch_id`) REFERENCES pitches(`pitch_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6900166 DEFAULT CHARSET=latin1 ROW_FORMAT=COMPRESSED KEY_BLOCK_SIZE=4 COMMENT='InnoDB free: 771072 kB'
+/*!50100 PARTITION BY KEY ()
+PARTITIONS 4 */
+
+ALTER TABLE `pitch_transitions`
+ADD COLUMN `batter` mediumint(6) unsigned NOT NULL AFTER `ab_id`,
+ADD FOREIGN KEY `batter` (`batter`) REFERENCES players(`eliasid`),
+ADD COLUMN `pitcher` mediumint(6) unsigned NOT NULL AFTER `batter`,
+ADD FOREIGN KEY `pitcher` (`pitcher`) REFERENCES players(`eliasid`)
+
+select *
+from atbats ab
+where ab.ab_id = 56
+
+select *
+from games g
+order by g.date asc
+
+select count(*) from pitch_transitions
+
+select * from atbats ab where ab.pitcher = 121250
+
+select * from players where players.last = 'Rivera' 
+
+select p.first, p.last, p.eliasid, count(pi.pitch_id)
+from games g
+inner join atbats ab on g.game_id = ab.game_id
+inner join players p on ab.pitcher = p.eliasid
+inner join pitches pi on ab.ab_id = pi.ab_id
+where g.date &gt;= '2015-01-01'
+group by p.eliasid
+
+select p.first, p.last, p.eliasid, count(pt.transition_id)
+from players p
+inner join pitch_transitions pt on p.eliasid = pt.pitcher
+group by p.eliasid
+
+select count(pt.transition_id)
+from players p
+inner join pitch_transitions pt on p.eliasid = pt.pitcher
+group by p.eliasid
+
+
+
+select ab_id, first_pitch_type, first_des, second_pitch_type, second_des from pitch_transitions pt 
+where (pt.first_pitch_type = 'FA' or pt.`second_pitch_type` = 'FA') and pt.`pitcher` = 448306
+order by ab_id
+limit 100
+
+select count(pt.`transition_id`) from pitch_transitions pt 
+where (pt.first_pitch_type is not null and pt.second_pitch_type is not null) and pt.`pitcher` = 448306
+
+select pt.`first_pitch_type`, count(pt.`first_pitch_type`) as c
+from pitch_transitions pt  
+where pt.`pitcher` = 448306
+group by pt.`first_pitch_type`
+order by c desc
+
+
+
+select distinct(p.pitch_type) from pitches p
+join atbats ab
+on p.ab_id = ab.ab_id
+join games g
+on ab.game_id = g.game_id
+where g.date &gt;= '01/01/2015'
+
+select g.date, p.ab_id, p.pitch_type, p.des, p.ball, p.strike from pitches p 
+join atbats ab
+on p.ab_id = ab.ab_id
+join games g
+on ab.game_id = g.game_id
+where p.pitch_type = 'FA' and ab.`pitcher` = 448306
+order by g.date desc
+limit 100
+
+select pitch_id, ab_id, pitch_type, des, ball, strike from pitches where ab_id = 6085 order by pitches.`pitch_id`
+
+select * from pitch_transitions pt where pt.ab_id = 6085</string>
+		<string>select count(*) from atbats ab where ab.pitcher = 121250</string>
+		<string>select * from atbats ab where ab.pitcher = 121250</string>
+		<string>select * from players where players.last = 'Rivera'</string>
+		<string>select *
+from games g
+order by g.date asc</string>
+		<string>select count(*) from pitch_transitions</string>
+		<string>select * from pitch_types
+order by id asc</string>
+		<string>select pitch from pitch_types
+order by id asc</string>
+		<string>select count(pt.transition_id)
+from players p
+inner join pitch_transitions pt on p.eliasid = pt.pitcher
+group by p.eliasid</string>
+		<string>select p.first, p.last, p.eliasid, count(pt.transition_id)
+from players p
+inner join pitch_transitions pt on p.eliasid = pt.pitcher
+group by p.eliasid</string>
+		<string>select * from pitch_types</string>
+		<string>select p.first, p.last, p.eliasid, count(pt.transition_id), avg(count(pt.transition_id))
+from players p
+inner join pitch_transitions pt on p.eliasid = pt.pitcher
+group by p.eliasid</string>
+		<string>select avg(count(pt.transition_id))
+from players p
+inner join pitch_transitions pt on p.eliasid = pt.pitcher
+group by p.eliasid</string>
+		<string>select p.first, p.last. p.eliasid, count(pt.transition_id)
+from players p
+inner join pitch_transitions pt on p.eliasid = pt.pitcher
+group by p.eliasid</string>
+		<string>select p.first, p.last, p.eliasid, count(pi.pitch_id)
+from games g
+inner join atbats ab on g.game_id = ab.game_id
+inner join players p on ab.pitcher = p.eliasid
+inner join pitches pi on ab.ab_id = pi.ab_id
+where g.date &gt;= '2015-01-01'
+group by p.eliasid</string>
+		<string>select p.first, p.last, p.eliasid, count(ab.ab_id)
+from games g
+inner join atbats ab on g.game_id = ab.game_id
+inner join players p on ab.pitcher = p.eliasid
+where g.date &gt;= '2015-01-01'
+group by p.eliasid</string>
+		<string>select max(g.date), p.first, p.last, p.eliasid, count(ab.ab_id)
+from games g
+inner join atbats ab on g.game_id = ab.game_id
+inner join players p on ab.pitcher = p.eliasid
+where g.date &gt;= '2015-01-01'
+group by p.eliasid</string>
+		<string>desc games</string>
+	</array>
+	<key>rdbms_type</key>
+	<string>mysql</string>
+	<key>rdbms_version</key>
+	<string>5.7.9</string>
+	<key>version</key>
+	<integer>1</integer>
+</dict>
+</plist>
